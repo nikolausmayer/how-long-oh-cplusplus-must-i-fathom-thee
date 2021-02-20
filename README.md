@@ -15,5 +15,18 @@ auto sum(const Args... args) -> decltype((args + ... + 0)) {
 int main() {
   std::cout << sum(1, 2, 3.5) << std::endl;
 }
+```
 
+**+++EXISTENTIAL CRISIS AVERTED+++** With C++17, this works *as it should*:
+```
+#include <iostream>
+
+template <typename... Args>
+auto sum(const Args... args) {
+  return (args + ... + 0);
+}
+
+int main() {
+  std::cout << sum(1, 2, 3.5) << std::endl;
+}
 ```
