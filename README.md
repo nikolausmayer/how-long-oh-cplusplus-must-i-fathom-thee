@@ -81,3 +81,42 @@ or yes daddy more braces
 Something my_something{Index{}};
 ```
 which finally makes the compiler realize that for heaven's sake buddy I guess the square peg just don't go in the round hole, and all is fine and it compiles and there was peace throughout the land.
+
+
+# Lambdas, or what ever happened to Perl being the least readable thing ever
+*Sigh.* Lambdas.
+```
+int main() { [](){}(); }
+```
+Some utter degenerate went full "bruh I'm a *hard simp* for *punctuation marks* OOH YES HARDER BRACKETS-せんぱい UWU"? 
+
+How else do you explain this? **What were they thinking?!**
+
+And no it doesn't stop there, why would it. There's `[=](){}` and `[](){}` and `[]{}()` (hahah of *course* those are not the same) and naturally then there's good ol' `[&]()->void{}()` dog bless its soul and oh right we can't ever forget *this* motherlover right here because *yes OF COURSE we needed lambdas AND TEMPLATES EVERYTHING NEEDS TEMPLATES IS THIS CPLUSPLUS OR THE WEENY HUT*
+```
+[]<class ASS>(T a){}
+```
+and ohoho now don't you worry precious darling cause daddy got you a REAL present 
+```
+auto f = []<typename ...Ts>(Ts&& ...ts) {
+  return foo(std::forward<Ts>(ts)...);
+};
+```
+WHY YES I ALWAYS WANTED VARIADIC ANONYMOUS FUNCTIONS but good lord I never aw heck no what a terrible day to have eyes
+
+
+Ah pardon me sire forgive this unworthy worm's transgression, for I did indeed forget about the unholy darkness that is RECURSIVE LAMBDAS because oh Satan take me now
+```
+#include <functional>
+
+int main() {
+  std::function<int(int)> fuctorial;
+  fuctorial = [&fuctorial](int x) -> int {
+    return (x == 1 ? 1 : x * fuctorial(x-1));
+  };
+  return fuctorial(10);
+}
+```
+Yes. Yes, we must tell the function about itself so it can call itself because of course the function would not know about itself how could it it's not like every other thing in C++ knows about itself without needing to be explicitly told about itself ooh lordy why do it be like that
+
+It was a mistake to ever go beyond Church literals.
