@@ -94,7 +94,7 @@ How else do you explain this? **What were they thinking?!**
 
 And no it doesn't stop there, why would it. There's `[=](){}` and `[](){}` and `[]{}()` (hahah of *course* those are not the same) and naturally then there's good ol' `[&]()->void{}()` dog bless its soul and oh right we can't ever forget *this* motherlover right here because *yes OF COURSE we needed lambdas AND TEMPLATES EVERYTHING NEEDS TEMPLATES IS THIS CPLUSPLUS OR THE WEENY HUT*
 ```
-[]<class ASS>(T a){}
+[]<class T>(T frick){}
 ```
 and ohoho now don't you worry precious darling cause daddy got you a REAL present 
 ```
