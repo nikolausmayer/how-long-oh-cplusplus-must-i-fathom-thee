@@ -112,7 +112,7 @@ Ah pardon me sire forgive this unworthy worm's transgression, for I did indeed f
 int main() {
   std::function<int(int)> fuctorial;
   fuctorial = [&fuctorial](int x) -> int {
-    return (x == 1 ? 1 : x * fuctorial(x-1));
+    return (x <= 1 ? 1 : x * fuctorial(x-1));
   };
   return fuctorial(10);
 }
