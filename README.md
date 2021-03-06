@@ -127,7 +127,7 @@ You ever wanted to create an array of zeroes? Wait, let me reformulate that—yo
 ```
 int array[27] = {};
 ```
-Hahah, yes, of course I want to assign the *empty scope* or a *Python dict* or the f\*cking *frog mouth operator* to my array of 27 integer numbers, thank you GCC that's *EXACTLY* what I wanted. UGHH.
+Hahah, yes, of course I want to assign the *empty scope* or a *Python dict* or the f\*cking *frog mouth operator* to my array of 27 integer numbers, thank you C++ that's *EXACTLY* what I wanted. UGHH.
 
 But wait, there's more! Remember how numbers are kinda the same? Like, a zero and a one are kinda both numbers? Right? So of course they work the same way? Right?? Well apparently C++ DIDN'T GET THAT MEMO BECAUSE FFFFFUUUUUUU
 ```
@@ -153,7 +153,7 @@ int array[] = {[0 ... 26] = 1};
 ```
 So yea ... that's that. 
 
-Doesn't work in GCC 10.2 yet, by the way. Try Clang-trunk.
+Doesn't work in GCC 10.2 yet, by the way. Try Clang.
 
 —
 
