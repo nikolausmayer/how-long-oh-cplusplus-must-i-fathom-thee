@@ -149,7 +149,7 @@ How did they find it?
 
 They asked *Satan*.
 ```
-int array[] = {[0 ... 27] = 1};
+int array[] = {[0 ... 26] = 1};
 ```
 So yea ... that's that. 
 
