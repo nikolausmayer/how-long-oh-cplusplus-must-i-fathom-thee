@@ -120,3 +120,77 @@ int main() {
 Yes. Yes, we must tell the function about itself so it can call itself because of course the function would not know about itself how could it it's not like every other thing in C++ knows about itself without needing to be explicitly told about itself ooh lordy why do it be like that
 
 It was a mistake to ever go beyond Church literals.
+
+
+# Designated Array Initializers ("DAI")
+You ever wanted to create an array of zeroes? Wait, let me reformulate that—you ever wanted to create an array of 27 zeroes in the **least sensible syntax imaginable?**
+```
+int array[27] = {};
+```
+Hahah, yes, of course I want to assign the *empty scope* or a *Python dict* or the f\*cking *frog mouth operator* to my array of 27 integer numbers, thank you GCC that's *EXACTLY* what I wanted. UGHH.
+
+But wait, there's more! Remember how numbers are kinda the same? Like, a zero and a one are kinda both numbers? Right? So of course they work the same way? Right?? Well apparently C++ DIDN'T GET THAT MEMO BECAUSE FFFFFUUUUUUU
+```
+int array[27] = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1
+```
+UUUUUUUUUUUU
+```
+1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
+```
+UUUUUGGIN HECK WHY! WHY IS IT DIFFERENT! Why is it so *fundamentally not the same* in *every way* that numbers are *supposed to be fundamentally the same?!*
+
+—
+
+So YES the committee (may the force be with it) finally realized that maybeeee that's not the most user-friendly syntax.
+
+So they found a *new* syntax.
+
+How did they find it?
+
+They asked *Satan*.
+```
+int array[] = {[0 ... 27] = 1};
+```
+So yea ... that's that. 
+
+Doesn't work in GCC 10.2 yet, by the way. Try Clang-trunk.
+
+—
+
+Oh right, and if you ever want to have an array of GODDAMN RANDOM BULLSH—
+```
+int array[27];
+```
+yeah have fun debugging *THAT* in prod, suckers.
+
+(They're not called *DAI*, by the way. I am not responsible for damages resulting from unlawful use of this term.)
+
+—
+
+Just for completeness' sake: do not do this. Use a *nice* way, one that won't make your reviewer want to choke you. Try to keep the WTFs/min to *ever so slightly above minimum*.
+```
+#include <algorithm>
+
+int array[27];
+std::fill(std::begin(array), std::end(array), 1);
+```
+or in prehistory C++ (yes I like to treat my `sizeof` like a function, *as it deserves*. Barbarian.)
+```
+int array[27];
+std::fill(array, array + sizeof(array)/sizeof(array[0]), 1);
+```
+or, if you can use at least C++17,
+```
+for (auto i = 0; i < std::size(array); i++)
+  array[i] = 1;
+```
+or at least this ugly sumbish
+```
+for (auto i = 0; i < sizeof(array)/sizeof(array[0]); i++)
+  array[i] = 1;
+```
+ooooor if you *really* want to make your designated rubber ducky consider a career change and/or violent homicide
+```
+#include <cwchar>
+std::wmemset((wchar_t*)array, 1, 27);
+```
