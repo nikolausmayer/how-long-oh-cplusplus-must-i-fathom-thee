@@ -119,6 +119,16 @@ int main() {
 ```
 Yes. Yes, we must tell the function about itself so it can call itself because of course the function would not know about itself how could it it's not like every other thing in C++ knows about itself without needing to be explicitly told about itself ooh lordy why do it be like that
 
+Of course bless your innocent heart if you ask your self "why declare the `std::function` before defining it?". By all means, try writing it as
+```
+std::function<int(int)> fuctorial = [&fuctorial] ...
+```
+or (yes I know these are not the same)
+```
+auto fuctorial = [&fuctorial] ...
+```
+try it! But maybe keep a punching bag and/or frustration-proof SO nearby.
+
 It was a mistake to ever go beyond Church literals.
 
 
