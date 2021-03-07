@@ -157,7 +157,7 @@ and *so does this*:
 ```
 int array[] = {[0 ... 26] = 1};
 ```
-However, it is somehow standard C++ AFAICT. GCC 10.2 does not like it, in any case. Clang, may the force be with it, **works**.
+However, it is somehow **NOT** standard C++, AFAICT. GCC 10.2 does not like it, in any case. Clang, may the force be with it, **works**.
 
 —
 
