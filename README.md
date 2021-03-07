@@ -139,21 +139,25 @@ UUUUUUUUUUUU
 ```
 UUUUUGGIN HECK WHY! WHY IS IT DIFFERENT! Why is it so *fundamentally not the same* in *every way* that numbers are *supposed to be fundamentally the same?!*
 
+Ahah, but this isn't even the worst we can do. No, *this* is:
+```
+int array[27] = {[0] = 1, [1] = 1, [2] = 1, [3] = 1, ...
+```
+And no, specifying the elements out-of-order does *not* work: GCC throws a temper tantrum because apparently `{[0] = 1}` is "trivial" while `{[26] = 1}` is somehow a "non-trivial designated initializer" (because who knows, maybe the compiler doesn't know how to *sort things*? When it usually just skirts any sort of responsibility and just evaluates things in whatever order it pleases? When it's typically fancy enough to just magically *infer* cognitive-dissonance-level complexities of indirection into all sorts of *guaranteed elisions*? But suddenly it's *to good* so sort a bunch of *numbers*? ***Sigh***). 
+
+Well, you might ask, isn't that completely pointless then? Yes. Yes it is.
+
 —
 
-So YES the committee (may the force be with it) finally realized that maybeeee that's not the most user-friendly syntax.
-
-So they found a *new* syntax.
-
-How did they find it?
-
-They asked *Satan*.
+... turns out, in good ol' **C**, *that thing works*
+```
+int array[] = {[26] = 1, [4] = 1};
+```
+and *so does this*:
 ```
 int array[] = {[0 ... 26] = 1};
 ```
-So yea ... that's that. 
-
-Doesn't work in GCC 10.2 yet, by the way. Try Clang.
+However, it is somehow standard C++ AFAICT. GCC 10.2 does not like it, in any case. Clang, may the force be with it, **works**.
 
 —
 
