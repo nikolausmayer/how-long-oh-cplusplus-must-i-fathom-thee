@@ -208,3 +208,102 @@ ooooor if you *really* want to make your designated rubber ducky consider a care
 #include <cwchar>
 std::wmemset((wchar_t*)array, 1, 27);
 ```
+
+
+# Fantastic Types and How to Know Them
+
+## Eowyn... my body is mangled
+
+Ok. 
+
+So one of *the* things about C++ is that it is *typed*. As in, *statically typed* (an `int` is born an `int` and will die an `int`), and generally considered pretty *strongly typed* as well. You got an `int`, that's an `int` alright and no two ways about it. Sure you can *cast* that `int` into whatever you want, but if you wanna go stupid with that, you gotta be *explicitly stupid*. The Compiler® won't just let you assign a `std::string` to an `int` all willy-nilly.
+
+So, in light of all that... why does C++ have to be such an **asshat** about its types?
+
+Consider this function definition:
+```
+int a_function(int a_param, float another_param) {
+  return 0;
+}
+```
+When we compile this (and only this snippet) into an object file using `g++ -c code.cpp` and check the result's contents using `nm code.o`, we of course get a very clear and readable representation of our very simple function's signature:
+```
+0000000000000000 T _Z10a_functionif
+```
+...
+
+ahh, f\*ck.
+
+No, *of course we don't*. This is C++. Are you not entertained?
+
+---
+
+**Name mangling** is a big thing in C++, and just like wearing pants, nobody explicitly says you have to do it, but everybody does it anyway. Name mangling means that you take something understandable and turn it into a *horrible mess* so that the *code-illiterate plebs* never be tempted to encroach unto the sunlit holy mesa that is The Land Of **Us The Coders**. (In a transparently futile attempt to hide their crimes behind pretty make-up, some people say "name decoration".)
+
+Because The Compiler® giveth the gifts of namespaces and overloaded functions, The Compiler® taketh away the ability to *just look at a thing and see what it is*. Instead, we must chant an arcane incantation:
+```
+$ nm --demangle code.o
+0000000000000000 T a_function(int, float)
+```
+(You know it's arcane because it has *two letters* and thus it was made back when men of all shapes and genders had mighty beards and mighty opinions. ed, vi, nm, bc.)
+
+A few things worthy of note:
+- Mangling is not standardized, and consequently *everyone does it differently and nothing works*. Compile with MSVC and link to GCC? Hahah, I think not. Just because you cannot *see* the walls all the time does not mean that your garden is without bounds.
+- The *return* type is not part of the function name. This does not mean that The Compiler® does not *know* the return type (how *dare* you question its methods), GCC just doesn't use the function name to keep its tab on it. Other compilers (with lowercase "c" you heathen) do it differently. (Tidbit to impress your next interviewer: does GCC do it differently with *templates*?)
+
+
+## Actually *Getting* to a Type
+
+Because we as humans just *had* to go ahead and breathe lightning into sand, we today have such problems as "my microwave keeps crashing my WiFi" and "my Twitter-trained AI is an asshole" and of course "help please how do i print type in C++".
+
+Well, it's GCC. It knows its own types. I mean—*how could it not*?
+
+```
+#include <typeinfo>
+#include <iostream>
+
+int a_function(int a_param, float another_param) {
+  return 0;
+}
+
+int main() {
+  std::cout << typeid(a_function).name() << std::endl;
+}
+```
+Yes. Yes.
+```
+FiifE
+```
+Wh~
+
+---
+
+Ok. Ok calm down. Breathe. Breathe... the concept of selling feet pics to pay back student loans is already losing its meaning. Breathe. Return to monke.
+
+Breathe in. Assume GCC. Breatheeeee ouuuuuuu
+```
+#include <cxxabi.h>
+
+...
+
+const char* demangle(const char* mangled_name) {
+  int err;
+  const char* res = abi::__cxa_demangle(mangled_name, 0, 0, &err);
+  return res;
+}
+
+template <typename T>
+std::string printable_type(T&& t) {
+  return demangle(typeid(t).name());
+}
+
+int main() {
+  std::cout << printable_type(a_function) << std::endl;
+}
+```
+The great gate of charity is wide open,
+```
+int (int, float)
+```
+with no obstacles before it.
+
