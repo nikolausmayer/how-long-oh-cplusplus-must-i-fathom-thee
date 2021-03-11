@@ -236,7 +236,7 @@ ahh, f\*ck.
 
 No, *of course we don't*. This is C++. Are you not entertained?
 
----
+—
 
 **Name mangling** is a big thing in C++, and just like wearing pants, nobody explicitly says you have to do it, but everybody does it anyway. Name mangling means that you take something understandable and turn it into a *horrible mess* so that the *code-illiterate plebs* never be tempted to encroach unto the sunlit holy mesa that is The Land Of **Us The Coders**. (In a transparently futile attempt to hide their crimes behind pretty make-up, some people say "name decoration".)
 
@@ -276,7 +276,7 @@ FiifE
 ```
 Wh~
 
----
+—
 
 Ok. Ok calm down. Breathe. Breathe... the concept of selling feet pics to pay back student loans is already losing its meaning. Breathe. Return to monke.
 
