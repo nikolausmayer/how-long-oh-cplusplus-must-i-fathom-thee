@@ -277,3 +277,69 @@ int (int, float)
 ```
 with no obstacles before it.
 
+
+## The Silent Schism
+
+Alright, young ones, gather 'round. Time for a history lesson!
+
+Ok, so to you Millenial youngsters this might be a boomer topic, but: there was a time when C++11 was like Python3. Brand-spanking new. Shiny. You knew it was the future, but of course 99.9% of your codebase were OLD CRUST (still are, I bet? *keheheeheh*) and their maintainers (if by some goddamn *miracle* they were actually still around) refused to recompile their whole garbage heap because even they were scared shitless of their own ghosts, and what's RAII anyway, and now you were stuck with prehistoric code *and binaries* and this meant that **you would not get to use C++11**.
+
+I am talking about ABIs, of course.
+```
+lib.cpp
+---
+#include <string>
+
+void make_string(std::string) {
+}
+```
+This function would, in *Þe Olden Days*, make GCC (something like version 4.8 or something, honestly this oldtimer don't remember that good) produce the name
+```
+$ g++-4 lib.cpp
+$ nm --demangle lib.o
+0000000000000000 T make_string(std::string)
+```
+So far, so nice.
+
+But *god forbid* you tried linking this object into something compiled with the *new* GCC **5**!
+```
+main.cpp
+---
+#include <string>
+
+void make_string(std::string);
+
+int main() {
+  make_string("ok boomer");
+}
+---
+$ g++-5 lib.o main.cpp
+/tmp/bFLkbfli.o: In function `main':
+whot.cpp:(.text+0x43): undefined reference to `make_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)'
+collect2: error: ld returned 1 exit status
+```
+Now you've done it, good job. You have torn space-time and summoned an Old God. Slow clap.
+
+What happened? How did we go from `std::string` to `make_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)`? And WHY?!
+
+Ok, so first — `make_string(std::string)` isn't actually the full name of that symbol. `nm --demangle` is just kinda smart and tries to be helpful, good girl that she is. But not this time, Lassie, this time we actually want the real deal:
+```
+$ nm lib.o | c++filt
+0000000000000000 T make_string(std::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+```
+Euggh. Yeah, that... looks righter. More like the chaos you are used to, not like the polished veneer that `nm --demangle` tried to soothe you with. Now we can actually try to compare those two idiots:
+```
+Old and busted: make_string(std::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+New hotness:    make_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
+```
+...see that? Some sneaky fucker snuck an extry `::__cxx11` in there! Between C++03 and C++11, the ABI (kinda like an API for the compiler, if you will) *changed* in subtle but *fundamentally incompatible* ways. Just like Python3 and poorly written Python2 libraries, or horses and no carriages, you **just can't have both**.
+
+And that, my friends, was when you said Fuck it and went home for the day. Because here be dragons. *This line* meant that *someone* would either have to recompile the whole goddamn codebase ... or you poor sod would just. not. get. to use fancy new C++ features. Guess which one usually happened.
+
+—
+
+Ah but the Old One she is merciful. When she grants you her unholy audience one moonless night, her dark whispers inside your head take on the shapes of terrible forbidden runes, impossible to utter with human flesh and voice but with the power to alter reality: `-D_GLIBCXX_USE_CXX11_ABI=0`.
+```
+$ g++-5 -D_GLIBCXX_USE_CXX11_ABI=0 lib.o main.cpp
+```
+No dogs are howling. No portent of evil rends the night with blood-curdling screeches. You know you have done a despicable thing, an *evil* thing. Like a zombie, your executable will blend in with the other programs, relying on the fact that nobody will ever bother to check its symbols to discover that **it isn't fully formed, it's just a human-shaped blob of flesh, imitating a human mind with dark purpose**. But your middle manager will not have to chew you out on monday for not having passed those mindless integration tests, and that is good. Saving your own hide is nothing but human. You pave your road with another well-intentioned stone.
