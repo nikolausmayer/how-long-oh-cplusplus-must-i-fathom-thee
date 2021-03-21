@@ -29,7 +29,7 @@ error: request for member ‘incrementIndex’ in ‘my_something’, which is o
 ```
 ### Coder goes 👁️👄wat👁️
 
-Meet ~the most valuable player~ **Most Vexing Parse**. The final boss of syntax bullshit, or at least I hecking hope it is because *goshdarnit C++ can you please just NOT?* The MVP will make you pine for the sweet release of multi-page Boost template GCC compile error torture.
+Meet the ~most valuable player~ ~minimum viable product~ **Most Vexing Parse**. The final boss of syntax bullshit, or at least I hecking hope it is because *goshdarnit C++ can you please just NOT?* The MVP will make you pine for the sweet release of multi-page Boost template GCC compile error torture. A parse so vexing that two out of the three words its name consists of require looking them up in a dictionary. It's **recursively stupefying**.
 
 So what in the sweet Bejeebus is happening? Well, `Something my_something(Index())` can unfortunately be read in two different ways:
 1. *"Construct a Something called »my_something« out of a freshly created Index".* This is what the coder wants because the coder is a sane person who isn't mentally stuck in 1970. Nuh-uh. No such luck.
