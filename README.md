@@ -278,7 +278,7 @@ int (int, float)
 with no obstacles before it.
 
 
-## The Silent Schism
+## Detective ABI and the Case of the Silent Schism
 
 Alright, young ones, gather 'round. Time for a history lesson!
 
