@@ -332,7 +332,7 @@ Euggh. Yeah, that... looks righter. More like the chaos you are used to, not lik
 Old and busted: make_string(std::basic_string<char, std::char_traits<char>, std::allocator<char> >)
 New hotness:    make_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
 ```
-...see that? Some sneaky fucker snuck an extra `::__cxx11` in there! Between C++03 and C++11, the ABI (kinda like an API for the compiler, if you will) *changed* in subtle but *fundamentally incompatible* ways (questions? [answers](https://www.youtube.com/watch?v=7RoTDjLLXJQ)). Just like Python3 and poorly written Python2 libraries, or horses and no carriages, you **just can't have both**.
+...see that? Some sneaky fucker snuck an extra `::__cxx11` in there! Between C++03 and C++11, the ABI (*“Application Binary Interface”*, kinda like an API for the compiler/linker, if you will) *changed* in subtle but *fundamentally incompatible* ways (questions? [answers](https://www.youtube.com/watch?v=7RoTDjLLXJQ)). Just like Python3 and poorly written Python2 libraries, or horses and no carriages, you **just can't have both**.
 
 And that, my friends, was when you said Fuck it and went home for the day. Because here be dragons. *This line* meant that *someone* would either have to recompile the whole goddamn codebase ... or you poor sod would just. not. get. to use fancy new C++ features. Guess which one usually happened.
 
