@@ -344,7 +344,7 @@ auto l = [&](int i) {
 int l = 15;
 l.__j = 15;
 ```
-GCC *will let you do that* and *it works* and shoot yes you can *abuse it in so many glorious ways*. Unfortunately, like `__int128_t` this is a *vendor-specific* thing (which is formalspeak for "your compiler might hate this and enthusiatically refuse to compile it") and it does not work in Clang because Clang makes the captures `private` (it also does not add the leading underscores but who cares at this point, damn loser compiler).
+GCC *will let you do that* and *it works* and shoot yes you can *abuse it in so many glorious ways*. Unfortunately, like `__int128_t` this is a *vendor-specific* thing (which is formalspeak for "your compiler might hate this and enthusiastically refuse to compile it") and it does not work in Clang because Clang makes the captures `private` (it also does not add the leading underscores but who cares at this point, damn loser compiler).
 
 
 ## Detective ABI and the Case of the Silent Schism
