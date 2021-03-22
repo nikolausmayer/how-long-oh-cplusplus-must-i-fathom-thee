@@ -296,7 +296,7 @@ int main() {
 $ g++-10 -std=c++20 main.cpp
 main::{lambda(int)#1}
 ```
-Yeah. That's... not a real type. Like, it *is*, obviously, but holy cow would the compiler ever slap you around a bit with a large trout should you ever feel so cheeky as to endavour *actually writing such a type yourself*. You *can't*.  (See above for how to `printable_type`.)
+Yeah. That's... not a real type. Like, it *is*, obviously, but holy cow would the compiler ever slap you around a bit with a large trout should you ever feel so cheeky as to endavour *actually writing such a type yourself*. You *can't*.  (See above for how to `printable_type`.) It's an *unknowable type* and C++ has come full circlejerk: a type so strict, not even the coder is allowed to know it.
 
 So, `struct`s with unknowable types. There are two entirely horrifying consequences arising from this.
 
