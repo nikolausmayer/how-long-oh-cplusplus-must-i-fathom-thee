@@ -277,6 +277,75 @@ int (int, float)
 ```
 with no obstacles before it.
 
+## Lambdas, again, or When The Compiler Says "SMOKE YOUUU"
+
+So lambdas are multidimensionally awesome. On the offensively ungrokable plane of functoresk nightmares on which anonymous function objects coexist together with function pointers and `std::function` polymorphic function wrappers, lambdas are proof that you *can* put lipstick on a pig.
+
+A lambda is also... *kind of*... just [a `struct` by any other name](https://cppinsights.io/lnk?code=I2luY2x1ZGUgPGNzdGRpbz4KI2luY2x1ZGUgPGlvc3RyZWFtPgojaW5jbHVkZSA8dHlwZWluZm8+CgppbnQgbWFpbigpCnsKICAgIGludCBqID0gMDsKICAgIGF1dG8gbCA9IFsmXShpbnQgaSkgewogICAgICByZXR1cm4gaStqOwogICAgfTsKfQ==&insightsOptions=cpp2a&std=cpp2a&rev=1.0). Except... **sigh**. Except this is C++, so we absolutely *positively* can not ever have nice things.
+```
+main.cpp
+---
+int main() {
+  int j = 0;
+  auto l = [&](int i) {
+    return i+j;
+  };
+  std::cout << printable_type(l) << std::endl;
+}
+---
+$ g++-10 -std=c++20 main.cpp
+main::{lambda(int)#1}
+```
+Yeah. That's... not a real type. Like, it *is*, obviously, but holy cow would the compiler ever slap you around a bit with a large trout should you ever feel so cheeky as to endavour *actually writing such a type yourself*. You *can't*.  (See above for how to `printable_type`.)
+
+So, `struct`s with unknowable types. There are two entirely horrifying consequences arising from this.
+
+### *You can inherit from lambdas*.
+Yes you that read right. You. Can. Inherit. From. An anonymous function object's class. ~Not too much, mostly plants~ But not really, or kinda yes really but only **some** lambdas. Let's... let's just look at one example:
+```
+auto k = [](int i) {
+  return i;
+};
+
+struct DL : decltype(k) {
+  DL() { }
+
+  int operator()(int i) {
+    return decltype(k)::operator()(i);
+  }
+} dl;
+```
+Do you already hate it? Good, so do I. By god do I hate this. It's fucking *AWESOME*. But unfortunately this particular house of cards breaks down in an entirely hurricaneorific fashion as soon as your lambda turns into a **closure**:
+```
+auto k = [&capture](int i) {
+  return i + capture;
+};
+
+struct DL : decltype(k) {
+  DL() { }
+
+  int operator()(int i) {
+    return decltype(k)::operator()(i);
+  }
+} dl;
+---
+error: a lambda closure type has a deleted default constructor
+```
+(A *"closure"* is ... let's keep it simple and say that *in sciencey terms*, a "function" cannot know anything except for its *parameters*, and a "closure" *can*. So a `[&]`-capture makes your lambda a closure and technically not a "function". Kinda. Computer science is lofty business.)
+
+### *GCC lets you fuck with captures*
+Because a lambda is a struct and `[&]`-captured variables have to be represented somehow.
+```
+int j = 0;
+auto l = [&](int i) {
+  return i+j;
+};
+
+int l = 15;
+l.__j = 15;
+```
+GCC *will let you do that* and *it works* and shoot yes you can *abuse it in so many glorious ways*. Unfortunately, like `__int128_t` this is a *vendor-specific* thing (which is formalspeak for "your compiler might hate this and enthusiatically refuse to compile it") and it does not work in Clang because Clang makes the captures `private` (it also does not add the leading underscores but who cares at this point, damn loser compiler).
+
 
 ## Detective ABI and the Case of the Silent Schism
 
