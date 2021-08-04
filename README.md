@@ -411,7 +411,7 @@ And that, my young friends, was when you said Fuck it and went home for the day.
 
 —
 
-Ah but the Old One she is merciful. When she grants you her unholy audience one moonless night, her dark whispers inside your head take on the shapes of terrible forbidden runes, impossible to utter with human flesh and voice but with the power to alter reality: `-D_GLIBCXX_USE_CXX11_ABI=0`.
+Ah but the Old One she is merciful. When she grants you her unholy audience one moonless night, her dark whispers inside your head take on the shapes of terrible forbidden runes, impossible to utter with human flesh and voice but with the power to alter reality... `-D_GLIBCXX_USE_CXX11_ABI=0`.
 ```
 $ g++-5 -D_GLIBCXX_USE_CXX11_ABI=0 lib.o main.cpp
 ```
@@ -436,5 +436,6 @@ Behold, the ones still slumbering in the void.
 - pointers to member functions, the level of indirection you always knew you didn't want
 - `typename template`, the emperor of torment
 - the story of `dynamic_cast` and the struct that would not stay virtual
+- Señor Nominmax in: the endlessly marvelous and ultimately entertaining charade of one certain operating system whose stupendous moronity brought about the end times
 
 May the lock be strong and the watch ever faithful.
