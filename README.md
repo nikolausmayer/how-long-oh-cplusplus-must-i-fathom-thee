@@ -235,22 +235,26 @@ Well, it's GCC. It knows its own types. I mean—*how could it not*?
 int a_function(int a_param, float another_param) {
   return 0;
 }
-
+```
+Yes.
+```
 int main() {
   std::cout << typeid(a_function).name() << std::endl;
 }
 ```
-Yes. Yes.
+Yes. YES!
 ```
 FiifE
 ```
-Wh~
+nnNNOWHATTHEFUUUU̷̧̬͍̭̫̕U̴͍̗͒Ư̶͉̈́̈́Ù̸̧̯̱̠̞̿̀Ú̴̢͖͍̝̜̇U̵̧̱̜͌͂̿?!!!
 
 —
 
-Ok. Ok calm down. Breathe. Breathe... the concept of selling feet pics to pay back student loans is already losing its meaning. Breathe. Return to monke.
+Ok. Ok calm down.
 
-Breathe in. Assume GCC. Breatheeeee ouuuuuuu
+—
+
+Breathe in. Breathe out. Breathe in. Breathe oooouuuuuuu~
 ```
 #include <cxxabi.h>
 
@@ -279,7 +283,7 @@ with no obstacles before it.
 
 ## Lambdas, again, or When The Compiler Says "SMOKE YOUUU"
 
-So lambdas are multidimensionally awesome. On the offensively ungrokable plane of functoresk nightmares on which anonymous function objects coexist together with function pointers and `std::function` polymorphic function wrappers, lambdas are proof that you *can* put lipstick on a pig.
+So lambdas are multidimensionally awesome. On the offensively ungrokable plane of functoresk nightmares on which anonymous function objects coexist together with function pointers and `std::function` polymorphic function wrappers, lambdas are proof that you *can* indeed put lipstick on a pig.
 
 A lambda is also... *kind of*... just [a `struct` by any other name](https://cppinsights.io/lnk?code=I2luY2x1ZGUgPGNzdGRpbz4KI2luY2x1ZGUgPGlvc3RyZWFtPgojaW5jbHVkZSA8dHlwZWluZm8+CgppbnQgbWFpbigpCnsKICAgIGludCBqID0gMDsKICAgIGF1dG8gbCA9IFsmXShpbnQgaSkgewogICAgICByZXR1cm4gaStqOwogICAgfTsKfQ==&insightsOptions=cpp2a&std=cpp2a&rev=1.0). Except... **sigh**. Except this is C++, so we absolutely *positively* can not ever have nice things.
 ```
@@ -296,12 +300,12 @@ int main() {
 $ g++-10 -std=c++20 main.cpp
 main::{lambda(int)#1}
 ```
-Yeah. That's... not a real type. Like, it *is*, obviously, but holy cow would the compiler ever slap you around a bit with a large trout should you ever feel so cheeky as to endavour *actually writing such a type yourself*. You *can't*.  (See above for how to `printable_type`.) It's an *unknowable type* and C++ has come full circlejerk: a type so strict, not even the coder is allowed to know it.
+Yeah. That's... not a real type. Like, it *is*, obviously, but holy cow would the compiler ever slap you around a bit with a large trout should you ever feel so cheeky as to endavour *actually writing such a type yourself*. You *can't*.  (See above for how to `printable_type`.) It's an *unknowable type* and C++ has come full circlejerk: a type so strict, not even the coder is allowed to know it. It is for your own safety, citizen. Now pick up that trashcan.
 
 So, `struct`s with unknowable types. There are two entirely horrifying consequences arising from this.
 
 ### *You can inherit from lambdas*.
-Yes you that read right. You. Can. Inherit. From. An anonymous function object's class. ~Not too much, mostly plants~ But not really, or kinda yes really but only **some** lambdas. Let's... let's just look at one example:
+Yes, from an anonymous function object's class. But not really, or kinda yes really but only **some** lambdas. Let's... just look at one example:
 ```
 auto k = [](int i) {
   return i;
@@ -331,7 +335,7 @@ struct DL : decltype(k) {
 ---
 error: a lambda closure type has a deleted default constructor
 ```
-(A *"closure"* is ... let's keep it simple and say that *in sciencey terms*, a "function" cannot know anything except for its *parameters*, and a "closure" *can*. So a `[&]`-capture makes your lambda a closure and technically not a "function". Kinda. Computer science is lofty business.)
+(A *"closure"* is ... let's keep it simple and say that a "function" cannot know anything except for its *parameters*, and a "closure" *can*. So a `[&]`-capture makes your lambda a closure and technically not a "function". Kinda. Computer science is funky business.)
 
 ### *GCC lets you fuck with captures*
 Because a lambda is a struct and `[&]`-captured variables have to be represented somehow.
@@ -351,7 +355,7 @@ GCC *will let you do that* and *it works* and shoot yes you can *abuse it in so 
 
 Alright, young ones, gather 'round. Time for a history lesson!
 
-Ok, so to you Millenial youngsters this might be a boomer topic, but: there was a time when C++11 was like Python3. Brand-spanking new. Shiny. You knew it was the future, but of course 99.9% of your codebase were OLD CRUST (still are, I bet? *keheheeheh*) and their maintainers (if by some goddamn *miracle* they were actually still around) refused to recompile their whole garbage heap because even they were scared shitless of their own ghosts, and what's RAII anyway, and now you were stuck with prehistoric code *and binaries* and this meant that **you would not get to use C++11**.
+Ok, so to you youngsters this might be a boomer topic, but: there was a time when C++11 was like Python3. Brand-spanking new. Shiny. You knew it was the future, but of course 99.9% of your codebase were OLD CRUST (still are, I bet? *keheheeheh*) and their maintainers (if by some goddamn *miracle* they were actually still around) refused to recompile their whole garbage heap because even they were scared shitless of their own ghosts, and what's RAII anyway, Unit tests? I've never heard of 'em, and now you were stuck with prehistoric code *and compiled binaries* and this meant that **you would just not get to use C++11, suck it up**.
 
 I am talking about ABIs, of course.
 ```
@@ -391,7 +395,7 @@ Now you've done it, good job. You have torn space-time and summoned an Old God. 
 
 What happened? How did we go from `std::string` to `make_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)`? And WHY?!
 
-Ok, so first — `make_string(std::string)` isn't actually the full name of that symbol. `nm --demangle` is just kinda smart and tries to be helpful, good girl that she is. But not this time, Lassie, this time we actually want the real deal:
+Ok, so first — `make_string(std::string)` isn't actually the full name of that symbol. `nm --demangle` is just kinda smart and tries to be helpful, good girl that she is. But not this time, Lassie, this time we actually want the raw fish:
 ```
 $ nm lib.o | c++filt
 0000000000000000 T make_string(std::basic_string<char, std::char_traits<char>, std::allocator<char> >)
@@ -401,9 +405,9 @@ Euggh. Yeah, that... looks righter. More like the chaos you are used to, not lik
 Old and busted: make_string(std::basic_string<char, std::char_traits<char>, std::allocator<char> >)
 New hotness:    make_string(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >)
 ```
-...see that? Some sneaky fucker snuck an extra `::__cxx11` in there! Between C++03 and C++11, the ABI (*“Application Binary Interface”*, kinda like an API for the compiler/linker, if you will) *changed* in subtle but *fundamentally incompatible* ways (questions? [answers](https://www.youtube.com/watch?v=7RoTDjLLXJQ)). Just like Python3 and poorly written Python2 libraries, or horses and no carriages, you **just can't have both**.
+...see that? Some sneaky fucker snuck a fucky extra `::__cxx11` in there! Between C++03 and C++11, the ABI (*“Application Binary Interface”*, kinda like an API for the compiler/linker, if you will) *changed* in subtle but *fundamentally incompatible* ways (questions? [answers](https://www.youtube.com/watch?v=7RoTDjLLXJQ)). Just like Python3 and poorly written Python2 libraries, or horses and no carriages, you **just can't have both**.
 
-And that, my friends, was when you said Fuck it and went home for the day. Because here be dragons. *This line* meant that *someone* would either have to recompile the whole goddamn codebase ... or you poor sod would just. not. get. to use fancy new C++ features. Guess which one usually happened.
+And that, my young friends, was when you said Fuck it and went home for the day. Because here be dragons. *This line* meant that *someone* would either have to recompile the whole goddamn codebase ... or you poor sod would just. not. get. to use fancy new C++ features. Guess which one usually happened.
 
 —
 
@@ -412,3 +416,25 @@ Ah but the Old One she is merciful. When she grants you her unholy audience one 
 $ g++-5 -D_GLIBCXX_USE_CXX11_ABI=0 lib.o main.cpp
 ```
 You sit in silence as your code compiles. No dogs are howling as the linker goes to work on its grim task. No portent of evil rends the night with blood-curdling screeches. You know you have done a despicable thing, an *evil* thing. Like a zombie, your executable will blend in with the other programs, relying on the fact that nobody will ever bother to check its symbols to discover that **it isn't fully formed, it's just a human-shaped blob of flesh, imitating a human mind with dark purpose**. But your middle manager will not have to chew you out on monday for not having passed those mindless integration tests, and that is good. Saving your own hide is nothing but human. You pave your road with another good intention.
+
+—
+
+The thunder is close now, already less of a low rumble and more deafening bone-dry cracks. It is blackest night and the howling storm is throwing down with mindless fury wave after wave of sleety rain onto the weary tin roof. No animal with four legs or fewer is seeking shelter under your porch; tonight the weather is the lesser evil to face. Inside, under the unnervingly metastable 6500K glare of a naked Singaporean 4 Watt LED driven too hot by at least a full sigma, you are declaring a nontrivial **function pointer**. 
+
+```
+void (*(*f[n])())();
+```
+
+You know, I have a theory. That back in the 1970's, some poor soul was about to just not have it. V'ger about to launch? Unravel the mysteries of ~harmony and focus~ the universe? Fuck that. Mr X about to make some new mysteries right here down on this earth goddamnit. Give people power they should never have. An n-element array of pointers to functions which return pointers to functions that themselves return void. Move over, linear-A. A new boss is in town.
+
+Really though, function pointers are just too cheap to rap on. Not even gonna go there. Forget they exist. *Please.* Be happy with lambdas and `std::function`. No man needs more in life or death. We slapped `++` on that `C` for a reason, and that reason was mercy.
+
+—
+
+## The Chests Unopened
+Behold, the ones still slumbering in the void.
+- pointers to member functions, the level of indirection you always knew you didn't want
+- `typename template`, the emperor of torment
+- the story of `dynamic_cast` and the struct that would not stay virtual
+
+May the lock be strong and the watch ever faithful.
