@@ -257,20 +257,24 @@ Ok. Ok calm down.
 Breathe in. Breathe out. Breathe in. Breathe oooouuuuuuu~
 ```
 #include <cxxabi.h>
-
-...
-
+```
+The absolute of all the Buddhas 
+```
 const char* demangle(const char* mangled_name) {
   int err;
   const char* res = abi::__cxa_demangle(mangled_name, 0, 0, &err);
   return res;
 }
-
+```
+enters into my own being,
+```
 template <typename T>
 std::string printable_type(T&& t) {
   return demangle(typeid(t).name());
 }
-
+```
+and my own being is found in union with theirs.
+```
 int main() {
   std::cout << printable_type(a_function) << std::endl;
 }
@@ -283,7 +287,7 @@ with no obstacles before it.
 
 ## Lambdas, again, or When The Compiler Says "SMOKE YOUUU"
 
-So lambdas are multidimensionally awesome. On the offensively ungrokable plane of functoresk nightmares on which anonymous function objects coexist together with function pointers and `std::function` polymorphic function wrappers, lambdas are proof that you *can* indeed put lipstick on a pig.
+So lambdas are multidimensionally awesome. On the offensively ungrokable manifold of functoresque nightmares on which anonymous function objects coexist together with function pointers and `std::function` polymorphic function wrappers, lambdas are glorious, shining proof that you *can* indeed put lipstick on a pig. 
 
 A lambda is also... *kind of*... just [a `struct` by any other name](https://cppinsights.io/lnk?code=I2luY2x1ZGUgPGNzdGRpbz4KI2luY2x1ZGUgPGlvc3RyZWFtPgojaW5jbHVkZSA8dHlwZWluZm8+CgppbnQgbWFpbigpCnsKICAgIGludCBqID0gMDsKICAgIGF1dG8gbCA9IFsmXShpbnQgaSkgewogICAgICByZXR1cm4gaStqOwogICAgfTsKfQ==&insightsOptions=cpp2a&std=cpp2a&rev=1.0). Except... **sigh**. Except this is C++, so we absolutely *positively* can not ever have nice things.
 ```
